@@ -5,6 +5,8 @@ const resetButton = document.querySelector("#reset");
 const theTimer = document.querySelector(".timer");
 
 var timer = [0,0,0,0];
+var interval;
+var timerRunning = false;
 
 // Add leading zero to numbers 9 or below (purely for aesthetics):
 function leadingZero(time) {
@@ -28,22 +30,42 @@ function runTimer() {
 // Match the text entered with the provided text on the page:
 function spellCheck() {
     let textEntered = testArea.value;
+    let originTextMatch = originText.substring(0,textEntered.length);
 
-    console.log(textEntered);
+    if (textEntered == originText) {
+        clearInterval(interval);
+        testWrapper.style.borderColor = "#429890";
+    } else {
+        if (textEntered == originTextMatch) {
+            testWrapper.style.borderColor = "#65CCf3";
+        } else {
+            testWrapper.style.borderColor = "#E95D0F";
+        }
+    }
+
 }
 
 // Start the timer:
 function start() {
     let textEnterdLength = testArea.value.length;
-    if (textEnterdLength === 0) {
-        setInterval(runTimer, 10);
+    if (textEnterdLength === 0 && !timerRunning) {
+        timerRunning = true;
+        interval = setInterval(runTimer, 10);
     }
     console.log(textEnterdLength);
 }
 
 // Reset everything:
 function reset() {
-    console.log("reset button has been pressed!");
+    // console.log("reset button has been pressed!");
+    clearInterval(interval); // ensures browser not running interval in the background because it wastes resources
+    interval = null; // when setInterval is reassigned next time we restart the app we are not running multiple intervals (also a waste of resources)
+    timer = [0,0,0,0]; // reset timer to zero
+    timerRunning = false; // set new interval and start clock again
+    // this only sets up a reset on the backend, also need to visually reset as shown below
+    testArea.value = "";
+    theTimer.innerHTML = "00:00:00";
+    testWrapper.style.borderColor = "grey";
 }
 
 // Event listeners for keyboard input and the reset

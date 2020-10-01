@@ -28,18 +28,18 @@ function runTimer() {
 // Match the text entered with the provided text on the page:
 function spellCheck() {
     let textEntered = testArea.value;
-    let originTextMatch = originText.substring(0,textEntered.length);
+    let originTextMatch = originText.substring(0, textEntered.length);
 
     if (textEntered == originText) {
-        testWrapper.style.borderColor = "#429890";
+        testWrapper.style.borderColor = "green";
     } else {
         if (textEntered == originTextMatch) {
-            testWrapper.style.borderColor = "#65CCf3";
+            testWrapper.style.borderColor = "blue";
         } else {
-            testWrapper.style.borderColor = "#E95D0F";
-        }
+            testWrapper.style.borderColor = "orange";
+        } 
     }
-    
+    // console.log(textEntered);
 }
 
 // Start the timer:

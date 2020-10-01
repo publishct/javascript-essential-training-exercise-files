@@ -1,3 +1,6 @@
+// demonstrates break in a loop 
+// to break is to terminate the current loop
+
 const MIN = 0;
 const MAX = 36;
 var testNumber = 15;

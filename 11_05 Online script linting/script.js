@@ -1,3 +1,10 @@
+// the code below works and is good but it has been pared down to use as an example in JSLINT
+// JSLINT is quite opinionated and provides a lot of errors, many of them unneccessary for great JavaScript
+// it is useful but we need time and practice to figure out what matters and what doesn't matter in JSLINT's seemingly endless list of errors on my poor innocent code 
+// jshint is a more lenient alternative because it holds code to a more reasonable standard 
+// when using jshint always configure to allow ECMAScript 6 
+
+
 const testWrapper = document.querySelector(".test-wrapper");
 const testArea = document.querySelector("#test-area")
 const originText = document.querySelector("#origin-text p").innerHTML;

@@ -20,7 +20,23 @@ function leadingZero(time) {
 function runTimer() {
     let currentTime = leadingZero(timer[0]) + ":" + leadingZero(timer[1]) + ":" + leadingZero(timer[2]);
     theTimer.innerHTML = currentTime;
-    timer[3]+;
+    // timer[3]+; this resulted in an uncaught syntax error and the browser HAPPENED to show the correct location, line 23 of the error 
+    // we can't always assume the browser is giving us the right error line number 
+    // the terms of the error are also very technical and not always helpful to debugging unless the name of the error is researched/read about
+    // but to create a general list of error types and possible solutions, here is a non-exhaustive one below: 
+    // uncaught syntax errors with characters: the browser encountered code that it didn't expect - like in this example timer[3]++; needed the additional plus sign and the browser encountered a semicolon (;) instead
+    // errors at the end of the javascript file: the browser isn't necessarily specifying the error is on the last line - the error could be anywhere above the last line of JavaScript 
+    // errors at the end of the javascript file or end of function: these have a tendency to be thrown due to an error in paranthesis, brackets, or curly braces 
+    
+    // navigating errors in VS CODE 
+    // - check corresponding parenthesis, curly braces, and brackets/ make sure they are closing in the correct positions by simply pointing the cursor at the beginning or ending brace or bracket - the code editor responds by auto underlining the corresponding one
+    // if there is no corresponding curly brace, bracket, or parenthesis then the code editor will not underline the brace or bracket that the cursor IS on 
+    // once non-underlined brace or bracket is found then look within the function or document with a process of elimination to make sure they're ending according to my desired logic 
+    // - color coding and angry script, as well as long strings being mono-color need to be double-checked because there may be an error 
+    // always use the console for JS troubleshooting 
+    // console.log method! we peek at our code's inner workings to see what is going on 
+    // logged content on common sites is either 1) a mistake or 2) current debugging going on 
+    timer[3]++;
 
     timer[0] = Math.floor((timer[3]/100)/60);
     timer[1] = Math.floor((timer[3]/100) - (timer[0] * 60));

@@ -4,11 +4,10 @@ function makeSrcset(imgSrc) {
     let markup = [];
     let width = 400;
 
-    for (let i = 0; i<5; i++) {
-        markup[i] = imgSrc + "-" + width + ".jpg " + width + "w";
+    for (let i = 0; i < 5; i++) {
+        markup[i] = imgSrc + "-" + width + ".jgp " + width + "w";
         width+=400;
     }
-
     return markup.join();
 }
 

@@ -1,3 +1,12 @@
+// Finding out exactly what triggers the issue is the whole starting point for moving forward 
+// As in this typing speed tester, Morten tried a few different ways of triggering the error of the timer not stopping by reloading the page and doing the following:  
+// 1) tried fully and correctly typing the text to test without typos: this stopped the clock, no error
+// 2) tried partial entry (first half of prompt correct, next half gibberish), deleted only the gibberish and typed the correct rest of test-text which also stopped the clock, no error
+// 3) tried partial entry (first half of prompt correct, next half gibberish), deleted the entire text entry (cleared the whole textbox) then retyped and the clock didn't stop - we found our error trigger 
+// we figured out our setinterval method was not clearing the interval 
+// - read documentation about setinterval method and learned intervals have IDs, the setinterval method stores an ID for the current interval
+// - we can output the interval ID for the current interval to make sure we're clearing the right interval 
+// - do this in the spellCheck function within the conditional statement (notes below)
 const testWrapper = document.querySelector(".test-wrapper");
 const testArea = document.querySelector("#test-area");
 const originText = document.querySelector("#origin-text p").innerHTML;
@@ -6,7 +15,7 @@ const theTimer = document.querySelector(".timer");
 
 var timer = [0,0,0,0];
 var interval;
-
+var timerRunning = false;
 
 // Add leading zero to numbers 9 or below (purely for aesthetics):
 function leadingZero(time) {
@@ -35,6 +44,11 @@ function spellCheck() {
     let originTextMatch = originText.substring(0,textEntered.length);
 
     if (textEntered == originText) {
+        // console.info("Interval stopped: ", interval ); // this returns the current interval ID 
+                                                    // then make the error noted happen again and see what the console spits out 
+                                                    // resulted in an interval stopped: 632 (random ID assigned by browser)
+                                                    // so what current interval is running on the back end and continuing the timer? 
+                                                    // figure this out in the below Start the timer: section
         clearInterval(interval);
         testWrapper.style.borderColor = "#429890";
     } else {
@@ -50,9 +64,10 @@ function spellCheck() {
 // Start the timer:
 function start() {
     let textEnterdLength = testArea.value.length;
-    if (textEnterdLength === 0) {
-
+    if (textEnterdLength === 0 && !timerRunning) {
+        timerRunning = true;
         interval = setInterval(runTimer, 10);
+        // console.info(interval);
     }
 }
 
@@ -61,6 +76,7 @@ function reset() {
     clearInterval(interval);
     interval = null;
     timer = [0,0,0,0];
+    timerRunning = false;
 
 
     testArea.value = "";

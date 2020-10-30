@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h1>To-Do</h1>
+        <script>
+        let tasks = [
+ {
+   'name'     : 'Buy milk from the shop',
+   'duration' : 20,
+   'priority' : 1
+ },
+ {
+   'name'     : 'Clean the house',
+   'duration' : 120,
+   'priority' : 3
+ },
+ {
+   'name'     : 'Study JS functions',
+   'duration' : 180,
+   'priority' : 1
+ },
+]
+
+
+// show all tasks with Map
+console.log(tasks.map(task => task.name));
+
+// only show high priority tasks (ranked #1) with Filter
+console.log(tasks.filter(task => task.priority == 1));
+
+// show total estimated time to complete all tasks on list with Reduce by first using map to create an array of durations 
+console.log(tasks.map(task => task.duration).reduce((total, amount) => total + amount));
+
+        </script>    
+    </body>
+</html>
